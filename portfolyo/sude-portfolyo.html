@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.8em%22 font-size=%2275%22 text-anchor=%22middle%22 x=%2250%%22>✨</text></svg>">
-<title>Sude Çokyaşar — Portfolyo</title>
+<title>Sude Çokyaşar Portfolyo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,450;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -70,6 +70,15 @@
   a{color:inherit;}
   button{font-family:inherit;}
 
+  /* Çoklu Dil Desteği Gösterim Kontrolleri */
+  [data-lang-en] { display: none; }
+  html[data-lang="en"] [data-lang-tr] { display: none; }
+  html[data-lang="en"] [data-lang-en] { display: inline; }
+  /* Blok elemanlar için varsayılan display uyumu */
+  html[data-lang="en"] p[data-lang-en], 
+  html[data-lang="en"] h3[data-lang-en], 
+  html[data-lang="en"] li[data-lang-en] { display: block; }
+
   /* ---------- NAV ---------- */
   .nav{
     position:fixed;
@@ -109,7 +118,19 @@
     text-decoration:none;
     transition:background-color .3s ease, border-color .3s ease, transform .18s ease;
   }
-  .icon-btn:hover{transform:translateY(-2px); opacity:1;}
+  .lang-btn {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--card-bg);
+    color: var(--sea-deep);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 700;
+    transition: background-color .3s ease, border-color .3s ease, transform .18s ease;
+  }
+  .icon-btn:hover, .lang-btn:hover {transform:translateY(-2px); opacity:1;}
   .icon-btn svg{width:17px; height:17px;}
 
   /* ---------- HERO ---------- */
@@ -709,13 +730,15 @@
           <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
         </svg>
       </button>
+      <!-- Dil Değiştirme Butonu (TR/EN) -->
+      <button class="lang-btn" id="langToggle" aria-label="Switch to English" title="Dil Değiştir / Change Language">EN</button>
     </div>
 
     <div class="nav-right">
-      <a href="#projeler">Projeler</a>
-      <a href="#deneyim">Deneyim</a>
-      <a href="#egitim">Eğitim</a>
-      <a href="#iletisim">İletişim</a>
+      <a href="#projeler"><span data-lang-tr>Projeler</span><span data-lang-en>Projects</span></a>
+      <a href="#deneyim"><span data-lang-tr>Deneyim</span><span data-lang-en>Experience</span></a>
+      <a href="#egitim"><span data-lang-tr>Eğitim</span><span data-lang-en>Education</span></a>
+      <a href="#iletisim"><span data-lang-tr>İletişim</span><span data-lang-en>Contact</span></a>
       <button class="icon-btn" id="themeToggle" aria-label="Karanlık modu aç">
         <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="4"/>
@@ -731,17 +754,29 @@
       <div class="chrome-card">
         <div class="chrome-bar">
           <span class="chrome-dot"></span>
-          <span class="chrome-title">merhaba-ben-sude.txt</span>
+          <span class="chrome-title"><span data-lang-tr>merhaba-ben-sude.txt</span><span data-lang-en>hello-i-am-sude.txt</span></span>
           <div class="chrome-icons"><span>—</span><span>□</span><span>×</span></div>
         </div>
         <div class="chrome-body">
-          <h1>Merhaba,<br>ben Sude.</h1>
-          <p>Yazılım Mühendisliği mezunuyum. LLM & RAG tabanlı yapay zeka sistemleri, doğal dil işleme ve modern backend mimarileri üzerine projeler geliştiriyorum. Kodlamanın yanı sıra UI/UX ve estetik arayüz tasarımına da odaklanıyorum.</p>
-            <p> Ziyaret ettiğiniz bu web sitesini tamamen kendim tasarlayıp kodladım. </p>
-            <p> Sitemden <strong>projelerimi</strong> inceleyebilir, <strong>staj deneyimlerime</strong> göz atabilir, <strong>CV'mi indirebilir</strong> ya da projelerin kaynak kodlarına doğrudan ulaşabilirsiniz!</p>
+          <h1>
+            <span data-lang-tr>Merhaba,<br>ben Sude.</span>
+            <span data-lang-en>Hello,<br>I'm Sude.</span>
+          </h1>
+          <p>
+            <span data-lang-tr>Yazılım Mühendisliği mezunuyum. LLM & RAG tabanlı yapay zeka sistemleri, doğal dil işleme ve modern backend mimarileri üzerine projeler geliştiriyorum. Kodlamanın yanı sıra UI/UX ve estetik arayüz tasarımına da odaklanıyorum.</span>
+            <span data-lang-en>I am a Software Engineering graduate. I develop projects on LLM & RAG based AI systems, natural language processing, and modern backend architectures. Alongside coding, I also focus on UI/UX and aesthetic interface design.</span>
+          </p>
+            <p> 
+              <span data-lang-tr>Ziyaret ettiğiniz bu web sitesini tamamen kendim tasarlayıp kodladım.</span>
+              <span data-lang-en>I designed and coded this website entirely by myself.</span>
+            </p>
+            <p> 
+              <span data-lang-tr>Sitemden <strong>projelerimi</strong> inceleyebilir, <strong>staj deneyimlerime</strong> göz atabilir, <strong>CV'mi indirebilir</strong> ya da projelerin kaynak kodlarına doğrudan ulaşabilirsiniz!</span>
+              <span data-lang-en>You can inspect my <strong>projects</strong>, check out my <strong>internship experiences</strong>, download my <strong>CV</strong>, or access project source codes directly from my site!</span>
+            </p>
           <button class="btn" id="openMail">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-            Bana Ulaşın
+            <span data-lang-tr>Bana Ulaşın</span><span data-lang-en>Get in Touch</span>
           </button>
         </div>
       </div>
@@ -770,7 +805,10 @@
             <path d="M12 2l9 4.9V17L12 22l-9-5V6.9L12 2z"/>
             <path d="M12 22V12M12 12L2.5 7.2M12 12l9.5-4.8"/>
           </svg>
-          <span>3D model Blender ile tarafımdan tasarlanıp modellenmiştir.</span>
+          <span>
+            <span data-lang-tr>3D model Blender ile tarafımdan tasarlanıp modellenmiştir.</span>
+            <span data-lang-en>3D model designed and modeled by me using Blender.</span>
+          </span>
         </div>
       </div>
     </div>
@@ -807,17 +845,17 @@
   <div class="mail-window" id="mailWindow">
     <div class="mail-bar" id="mailDrag">
       <span class="chrome-dot"></span>
-      <span class="mail-title">Yeni E-posta</span>
+      <span class="mail-title"><span data-lang-tr>Yeni E-posta</span><span data-lang-en>New Email</span></span>
       <button class="mail-close" id="closeMail">×</button>
     </div>
     <div class="mail-body">
-      <label for="fName">Adınız</label>
+      <label for="fName"><span data-lang-tr>Adınız</span><span data-lang-en>Your Name</span></label>
       <input id="fName" type="text" placeholder="Adınız Soyadınız">
-      <label for="fSubject">Konu</label>
+      <label for="fSubject"><span data-lang-tr>Konu</span><span data-lang-en>Subject</span></label>
       <input id="fSubject" type="text" placeholder="Mesaj konusu">
-      <label for="fMsg">Mesajınız</label>
+      <label for="fMsg"><span data-lang-tr>Mesajınız</span><span data-lang-en>Your Message</span></label>
       <textarea id="fMsg" placeholder="Merhaba Sude, ..."></textarea>
-      <button class="btn" type="button" onclick="window.location.href='mailto:sudecokyasar@gmail.com?subject='+encodeURIComponent(document.getElementById('fSubject').value)+'&body='+encodeURIComponent(document.getElementById('fMsg').value)">Gönder</button>
+      <button class="btn" type="button" onclick="window.location.href='mailto:sudecokyasar@gmail.com?subject='+encodeURIComponent(document.getElementById('fSubject').value)+'&body='+encodeURIComponent(document.getElementById('fMsg').value)"><span data-lang-tr>Gönder</span><span data-lang-en>Send</span></button>
     </div>
   </div>
 
@@ -843,9 +881,9 @@
         <div class="modal-actions">
           <a class="btn" id="modalRepo" href="https://github.com/sudecokyasar" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-            GitHub Reposu
+            <span data-lang-tr>GitHub Reposu</span><span data-lang-en>GitHub Repository</span>
           </a>
-          <a class="btn ghost" id="modalDemo" href="#" target="_blank" rel="noopener">Canlı Demo</a>
+          <a class="btn ghost" id="modalDemo" href="#" target="_blank" rel="noopener"><span data-lang-tr>Canlı Demo</span><span data-lang-en>Live Demo</span></a>
         </div>
       </div>
     </div>
@@ -854,7 +892,7 @@
   <!-- PROJECTS -->
   <section class="page" id="projeler">
     <div class="section-head">
-      <h2>Projelerim</h2>
+      <h2><span data-lang-tr>Projelerim</span><span data-lang-en>My Projects</span></h2>
       <span class="count">01</span>
     </div>
     <div class="projects-grid">
@@ -863,22 +901,40 @@
         <div class="project-top"><span class="chrome-dot"></span><span class="mail-title">cv-analiz-asistani.ai</span></div>
         <div class="project-media"><img src="assets\cv-analiz-asistanı.png" alt="Proje Ekran Görüntüsü" style="width:100%; height:100%; object-fit:cover;"></div>
         <div class="project-body">
-          <h3>Yapay Zeka Destekli CV Analiz ve İK Asistanı</h3>
-          <p>Dify ve Claude tabanlı iş akışları ile CV ayrıştırma, RAG destekli akıllı sohbet botu ve aday-ilan semantik eşleştirme sistemi.</p>
+          <h3>
+            <span data-lang-tr>Yapay Zeka Destekli CV Analiz ve İK Asistanı</span>
+            <span data-lang-en>AI-Powered CV Analysis & HR Assistant</span>
+          </h3>
+          <p>
+            <span data-lang-tr>Dify ve Claude tabanlı iş akışları ile CV ayrıştırma, RAG destekli akıllı sohbet botu ve aday-ilan semantik eşleştirme sistemi.</span>
+            <span data-lang-en>CV parsing workflows with Dify and Claude, RAG-supported smart chatbot, and candidate-job semantic matching system.</span>
+          </p>
           <div class="tag-row">
             <span class="tag">Dify</span><span class="tag">Claude Sonnet</span><span class="tag">RAG</span><span class="tag">Streamlit</span><span class="tag">Python</span>
           </div>
           <div class="view-more">
-            Detayları gör
+            <span data-lang-tr>Detayları gör</span><span data-lang-en>View details</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </div>
           <div class="feature-overlay">
-            <h4>Öne Çıkanlar</h4>
+            <h4><span data-lang-tr>Öne Çıkanlar</span><span data-lang-en>Highlights</span></h4>
             <ul>
-              <li>%86.7 alan doğruluğu ile JSON şema dönüşümü</li>
-              <li>RAG destekli akıllı İK sohbet botu</li>
-              <li>NDCG@5 skorunda 0.908 başarı</li>
-              <li>Streamlit üzerinde interaktif kontrol paneli</li>
+              <li>
+                <span data-lang-tr>%86.7 alan doğruluğu ile JSON şema dönüşümü</span>
+                <span data-lang-en>JSON schema transformation with 86.7% field accuracy</span>
+              </li>
+              <li>
+                <span data-lang-tr>RAG destekli akıllı İK sohbet botu</span>
+                <span data-lang-en>RAG-supported smart HR chatbot</span>
+              </li>
+              <li>
+                <span data-lang-tr>NDCG@5 skorunda 0.908 başarı</span>
+                <span data-lang-en>0.908 success score in NDCG@5</span>
+              </li>
+              <li>
+                <span data-lang-tr>Streamlit üzerinde interaktif kontrol paneli</span>
+                <span data-lang-en>Interactive control panel on Streamlit</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -893,8 +949,14 @@
           <img src="assets/telecom.png" alt="TelcoAI Ekran Görüntüsü" style="width:100%; height:100%; object-fit:cover;">
         </div>
         <div class="project-body">
-          <h3>Telekom AI Destek &amp; Ağ Arıza Asistanı</h3>
-          <p>GSMA CAMARA Open Gateway API, RAG destekli teknik kılavuz tarama motoru ve FastAPI tabanlı akıllı müşteri destek sistemi.</p>
+          <h3>
+            <span data-lang-tr>Telekom AI Destek &amp; Ağ Arıza Asistanı</span>
+            <span data-lang-en>Telecom AI Support & Network Fault Assistant</span>
+          </h3>
+          <p>
+            <span data-lang-tr>GSMA CAMARA Open Gateway API, RAG destekli teknik kılavuz tarama motoru ve FastAPI tabanlı akıllı müşteri destek sistemi.</span>
+            <span data-lang-en>GSMA CAMARA Open Gateway API, RAG-supported technical guide scanning engine, and FastAPI-based smart customer support system.</span>
+          </p>
           <div class="tag-row">
             <span class="tag">FastAPI</span>
             <span class="tag">Streamlit</span>
@@ -903,16 +965,28 @@
             <span class="tag">ChromaDB</span>
           </div>
           <div class="view-more">
-            Detayları gör
+            <span data-lang-tr>Detayları gör</span><span data-lang-en>View details</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </div>
           <div class="feature-overlay">
-            <h4>Öne Çıkanlar</h4>
+            <h4><span data-lang-tr>Öne Çıkanlar</span><span data-lang-en>Highlights</span></h4>
             <ul>
-              <li>GSMA CAMARA Open Gateway API entegrasyonu</li>
-              <li>ChromaDB ve MiniLM ile RAG tabanlı teknik kılavuz arama</li>
-              <li>Groq LLM (Llama-3.1-70B) ile dinamik Tool Calling</li>
-              <li>Canlı abone kokpiti ve Streamlit arayüzü</li>
+              <li>
+                <span data-lang-tr>GSMA CAMARA Open Gateway API entegrasyonu</span>
+                <span data-lang-en>GSMA CAMARA Open Gateway API integration</span>
+              </li>
+              <li>
+                <span data-lang-tr>ChromaDB ve MiniLM ile RAG tabanlı teknik kılavuz arama</span>
+                <span data-lang-en>RAG-based technical manual search with ChromaDB and MiniLM</span>
+              </li>
+              <li>
+                <span data-lang-tr>Groq LLM (Llama-3.1-70B) ile dinamik Tool Calling</span>
+                <span data-lang-en>Dynamic Tool Calling with Groq LLM (Llama-3.1-70B)</span>
+              </li>
+              <li>
+                <span data-lang-tr>Canlı abone kokpiti ve Streamlit arayüzü</span>
+                <span data-lang-en>Live subscriber cockpit and Streamlit interface</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -923,21 +997,36 @@
         <div class="project-media"><img src="assets/hr.png" alt="Company & HR Ekran Görüntüsü" style="width:100%; height:100%; object-fit:cover;"></div>
         <div class="project-body">
           <h3>Company &amp; HR</h3>
-          <p>Patron talepleri ile çalışan mutluluğu arasında denge kurduğunuz, işe alım ve bütçe yönetimini konu alan mobil simülasyon oyunu.</p>
+          <p>
+            <span data-lang-tr>Patron talepleri ile çalışan mutluluğu arasında denge kurduğunuz, işe alım ve bütçe yönetimini konu alan mobil simülasyon oyunu.</span>
+            <span data-lang-en>A mobile simulation game focusing on recruitment and budget management, where you balance boss demands and employee happiness.</span>
+          </p>
           <div class="tag-row">
             <span class="tag">Unity (2D)</span><span class="tag">C#</span><span class="tag">Aseprite</span><span class="tag">UI/UX</span>
           </div>
           <div class="view-more">
-            Detayları gör
+            <span data-lang-tr>Detayları gör</span><span data-lang-en>View details</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </div>
           <div class="feature-overlay">
-            <h4>Öne Çıkanlar</h4>
+            <h4><span data-lang-tr>Öne Çıkanlar</span><span data-lang-en>Highlights</span></h4>
             <ul>
-              <li>Dinamik ofis ortamı ve gerçekçi karar mekanizmaları</li>
-              <li>Aday CV inceleme ve akıllı işe alım modülü</li>
-              <li>Patron aramaları ve yüz yüze çalışan iletişimi</li>
-              <li>Bütçe, maaş yönetimi ve ofis motivasyon etkinlikleri</li>
+              <li>
+                <span data-lang-tr>Dinamik ofis ortamı ve gerçekçi karar mekanizmaları</span>
+                <span data-lang-en>Dynamic office environment and realistic decision-making mechanisms</span>
+              </li>
+              <li>
+                <span data-lang-tr>Aday CV inceleme ve akıllı işe alım modülü</span>
+                <span data-lang-en>Candidate CV review and smart recruitment module</span>
+              </li>
+              <li>
+                <span data-lang-tr>Patron aramaları ve yüz yüze çalışan iletişimi</span>
+                <span data-lang-en>Boss calls and face-to-face employee communication</span>
+              </li>
+              <li>
+                <span data-lang-tr>Bütçe, maaş yönetimi ve ofis motivasyon etkinlikleri</span>
+                <span data-lang-en>Budget, salary management, and office motivation events</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -948,29 +1037,53 @@
   <!-- EXPERIENCE -->
   <section class="page" id="deneyim">
     <div class="section-head">
-      <h2>Deneyimim</h2>
+      <h2><span data-lang-tr>Deneyimim</span><span data-lang-en>Experience</span></h2>
       <span class="count">02</span>
     </div>
     <div class="exp-grid">
       <div class="exp-item" data-skills="Spring Boot,CAMARA API,Java,Gateway,Docker,Postman">
         <div class="exp-head">
           <h3>Argela Technologies — Developer Intern</h3>
-          <time>Temmuz 2025 — Ağustos 2025</time>
+          <time>
+            <span data-lang-tr>Temmuz 2025 — Ağustos 2025</span>
+            <span data-lang-en>July 2025 — August 2025</span>
+          </time>
         </div>
         <ul>
-          <li>Java Spring Boot kullanarak modüler, katmanlı ve sürdürülebilir backend servisleri geliştirildi.</li>
-          <li>Core networks ile kullanıcılar arası Gateway Module entegrasyonu ve Linux Foundation CAMARA API standartlarına uyum sağlandı.</li>
-          <li>Postman ile uçtan uca API testleri gerçekleştirdi; Docker ile tutarlı çalışma ortamları oluşturuldu.</li>
+          <li>
+            <span data-lang-tr>Java Spring Boot kullanarak modüler, katmanlı ve sürdürülebilir backend servisleri geliştirildi.</span>
+            <span data-lang-en>Developed modular, layered, and sustainable backend services using Java Spring Boot.</span>
+          </li>
+          <li>
+            <span data-lang-tr>Core networks ile kullanıcılar arası Gateway Module entegrasyonu ve Linux Foundation CAMARA API standartlarına uyum sağlandı.</span>
+            <span data-lang-en>Integrated Gateway Module between core networks and users, and complied with Linux Foundation CAMARA API standards.</span>
+          </li>
+          <li>
+            <span data-lang-tr>Postman ile uçtan uca API testleri gerçekleştirdi; Docker ile tutarlı çalışma ortamları oluşturuldu.</span>
+            <span data-lang-en>Conducted end-to-end API tests with Postman; created consistent working environments with Docker.</span>
+          </li>
         </ul>
       </div>
-      <div class="exp-item" data-skills="Veritabanı Optimizasyonu,Sistem Entegrasyonu,İndeksleme,SAP ERP,SQL">
+      <div class="exp-item" data-skills="Database Optimization,System Integration,Indexing,SAP ERP,SQL">
         <div class="exp-head">
-          <h3>Özyaşar Tel ve Galvanizleme — Bilişim Sistemleri Stajyeri</h3>
-          <time>Ağustos 2024 — Ekim 2024</time>
+          <h3>
+            <span data-lang-tr>Özyaşar Tel ve Galvanizleme — Bilişim Sistemleri Stajyeri</span>
+            <span data-lang-en>Özyaşar Wire and Galvanizing — IT Systems Intern</span>
+          </h3>
+          <time>
+            <span data-lang-tr>Ağustos 2024 — Ekim 2024</span>
+            <span data-lang-en>August 2024 — October 2024</span>
+          </time>
         </div>
         <ul>
-          <li>İlişkisel veritabanlarında sorgu optimizasyonu ve indeksleme uygulayarak veri çekme sürelerini hızlandırıldı.</li>
-          <li>Kurumsal iş akışlarında SAP ERP sistemi ile entegre çalışan özel yazılım çözümlerine katkıda bulunuldu.</li>
+          <li>
+            <span data-lang-tr>İlişkisel veritabanlarında sorgu optimizasyonu ve indeksleme uygulayarak veri çekme sürelerini hızlandırıldı.</span>
+            <span data-lang-en>Accelerated data retrieval times by applying query optimization and indexing in relational databases.</span>
+          </li>
+          <li>
+            <span data-lang-tr>Kurumsal iş akışlarında SAP ERP sistemi ile entegre çalışan özel yazılım çözümlerine katkıda bulunuldu.</span>
+            <span data-lang-en>Contributed to custom software solutions integrated with the SAP ERP system in corporate workflows.</span>
+          </li>
         </ul>
       </div>
     </div>
@@ -979,23 +1092,38 @@
   <!-- EDUCATION -->
   <section class="page" id="egitim">
     <div class="section-head">
-      <h2>Eğitim</h2>
+      <h2><span data-lang-tr>Eğitim</span><span data-lang-en>Education</span></h2>
       <span class="count">03</span>
     </div>
     <div class="exp-grid">
       <div class="exp-item">
         <div class="exp-head">
-          <h3>Kocaeli Üniversitesi</h3>
-          <time>Eylül 2022 — Temmuz 2026</time>
+          <h3>
+            <span data-lang-tr>Kocaeli Üniversitesi</span>
+            <span data-lang-en>Kocaeli University</span>
+          </h3>
+          <time>
+            <span data-lang-tr>Eylül 2022 — Temmuz 2026</span>
+            <span data-lang-en>September 2022 — July 2026</span>
+          </time>
         </div>
-        <p class="edu-sub">Yazılım Mühendisliği, Lisans (GNO: 3.29 / 4.00)</p>
+        <p class="edu-sub">
+          <span data-lang-tr>Yazılım Mühendisliği, Lisans (GNO: 3.29 / 4.00)</span>
+          <span data-lang-en>Software Engineering, Bachelor's Degree (GPA: 3.29 / 4.00)</span>
+        </p>
       </div>
       <div class="exp-item">
         <div class="exp-head">
           <h3>John Von Neumann University</h3>
-          <time>Şubat 2024 — Haziran 2024</time>
+          <time>
+            <span data-lang-tr>Şubat 2024 — Haziran 2024</span>
+            <span data-lang-en>February 2024 — June 2024</span>
+          </time>
         </div>
-        <p class="edu-sub">Bilgisayar Bilimleri Mühendisliği (Erasmus+ Değişim Programı — Macaristan)</p>
+        <p class="edu-sub">
+          <span data-lang-tr>Bilgisayar Bilimleri Mühendisliği (Erasmus+ Değişim Programı — Macaristan)</span>
+          <span data-lang-en>Computer Science Engineering (Erasmus+ Exchange Program — Hungary)</span>
+        </p>
       </div>
     </div>
   </section>
@@ -1003,12 +1131,12 @@
   <!-- LINKS -->
   <section class="page" id="iletisim">
     <div class="section-head">
-      <h2>Bağlantılar</h2>
+      <h2><span data-lang-tr>Bağlantılar</span><span data-lang-en>Links</span></h2>
     </div>
     <div class="links-row">
       <a class="link-pill" href="SudeCokyasar_CV.pdf" download="Sude_Cokyasar_CV.pdf">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-        CV İndir
+        <span data-lang-tr>CV İndir</span><span data-lang-en>Download CV</span>
       </a>
       <a class="link-pill" href="https://github.com/sudecokyasar" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
@@ -1112,6 +1240,21 @@
   document.querySelectorAll('button, a, .project-card').forEach(el => {
     el.addEventListener('mouseenter', playHoverSound);
     el.addEventListener('click', playClickSound);
+  });
+
+  // ---------- DİL DEĞİŞTİRME (TR / EN) MANTIĞI ----------
+  const langToggle = document.getElementById('langToggle');
+  let currentLang = 'tr';
+
+  function applyLanguage(lang) {
+    currentLang = lang;
+    document.documentElement.setAttribute('data-lang', lang);
+    langToggle.textContent = lang === 'tr' ? 'EN' : 'TR';
+    langToggle.setAttribute('aria-label', lang === 'tr' ? 'Switch to English' : 'Türkçeye Geç');
+  }
+
+  langToggle.addEventListener('click', () => {
+    applyLanguage(currentLang === 'tr' ? 'en' : 'tr');
   });
 
   // ---------- SOFT ARKA PLAN MÜZİĞİ SENTEZLEYİCİSİ ----------
@@ -1288,8 +1431,14 @@
   const projects = {
     talentlens: {
       window: 'cv-analiz-asistani.ai',
-      title: 'Yapay Zeka Destekli CV Analiz ve İK Asistanı (Bitirme Tezi)',
-      desc: 'Dify ve Claude (Sonnet) iş akışları entegre edilerek CV metinleri %86.7 alan doğruluğu ile JSON şemalarına dönüştürüldü. RAG destekli akıllı İK sohbet botu geliştirildi. TF-IDF ve LLM sıralama algoritmaları karşılaştırıldı; eşleştirmede NDCG@5 skorunda 0.908 ve Pearson korelasyonunda 0.752 başarı elde edildi. PyMuPDF, python-docx ve pandas ile veri boru hatları kurularak kararlar Streamlit kontrol paneline aktarıldı.',
+      title: {
+        tr: 'Yapay Zeka Destekli CV Analiz ve İK Asistanı (Bitirme Tezi)',
+        en: 'AI-Powered CV Analysis & HR Assistant (Graduation Thesis)'
+      },
+      desc: {
+        tr: 'Dify ve Claude (Sonnet) iş akışları entegre edilerek CV metinleri %86.7 alan doğruluğu ile JSON şemalarına dönüştürüldü. RAG destekli akıllı İK sohbet botu geliştirildi. TF-IDF ve LLM sıralama algoritmaları karşılaştırıldı; eşleştirmede NDCG@5 skorunda 0.908 ve Pearson korelasyonunda 0.752 başarı elde edildi. PyMuPDF, python-docx ve pandas ile veri boru hatları kurularak kararlar Streamlit kontrol paneline aktarıldı.',
+        en: 'Integrated Dify and Claude (Sonnet) workflows to convert CV texts into JSON schemas with 86.7% field accuracy. Developed a RAG-supported smart HR chatbot. Compared TF-IDF and LLM ranking algorithms; achieved 0.908 in NDCG@5 and 0.752 in Pearson correlation. Built data pipelines using PyMuPDF, python-docx, and pandas to feed decisions into a Streamlit dashboard.'
+      },
       tags: ['Dify', 'Claude Sonnet', 'RAG', 'Streamlit', 'Python', 'PyMuPDF', 'Pandas'],
       repo: 'https://github.com/bsenurbas/cv-analiz-asistani',
       demo: 'https://cv-analiz-asistani-uio3.vercel.app',
@@ -1303,8 +1452,14 @@
     },
     telcoai: {
       window: 'telco-ai-assistant.py',
-      title: 'Telekom AI Destek & Ağ Arıza Çözüm Asistanı',
-      desc: 'GSMA CAMARA Open Gateway API standartları üzerinden gerçek zamanlı hat ve cihaz durumunu sorgulayan Tool/Function Calling mimarisi. ChromaDB ve sentence-transformers tabanlı RAG motoru ile teknik kılavuz taraması yaparken, Groq LLM (Llama-3.1-70B) ve FastAPI altyapısı ile güvenli, çok turlu bir akıllı destek deneyimi sunar.',
+      title: {
+        tr: 'Telekom AI Destek & Ağ Arıza Çözüm Asistanı',
+        en: 'Telecom AI Support & Network Fault Resolution Assistant'
+      },
+      desc: {
+        tr: 'GSMA CAMARA Open Gateway API standartları üzerinden gerçek zamanlı hat ve cihaz durumunu sorgulayan Tool/Function Calling mimarisi. ChromaDB ve sentence-transformers tabanlı RAG motoru ile teknik kılavuz taraması yaparken, Groq LLM (Llama-3.1-70B) ve FastAPI altyapısı ile güvenli, çok turlu bir akıllı destek deneyimi sunar.',
+        en: 'Tool/Function Calling architecture querying real-time line and device status via GSMA CAMARA Open Gateway API standards. Powered by a ChromaDB and sentence-transformers based RAG engine for technical manual scanning, backed by Groq LLM (Llama-3.1-70B) and FastAPI.'
+      },
       tags: ['FastAPI', 'Streamlit', 'LangChain', 'Groq Llama-3', 'ChromaDB', 'CAMARA API'],
       repo: 'https://github.com/sudecokyasar/Telecom-AI-Assistant',
       demo: 'https://telecom-ai-assistant1.streamlit.app',
@@ -1318,8 +1473,14 @@
     },
     companyhr: {
       window: 'company-hr.unity',
-      title: 'Company & HR — Mobil Simülasyon Oyunu',
-      desc: 'Bir İK uzmanı olarak patronun talepleri ile çalışanların mutluluğu arasındaki ince çizgide denge kurmaya çalıştığınız karar odaklı bir mobil simülasyon ve yönetim oyunu. İşe alımlar, bütçe yönetimi, ofis içi krizler ve birebir çalışan iletişimleriyle şirketi başarıya taşıyın.',
+      title: {
+        tr: 'Company & HR — Mobil Simülasyon Oyunu',
+        en: 'Company & HR — Mobile Simulation Game'
+      },
+      desc: {
+        tr: 'Bir İK uzmanı olarak patronun talepleri ile çalışanların mutluluğu arasındaki ince çizgide denge kurmaya çalıştığınız karar odaklı bir mobil simülasyon ve yönetim oyunu. İşe alımlar, bütçe yönetimi, ofis içi krizler ve birebir çalışan iletişimleriyle şirketi başarıya taşıyın.',
+        en: 'A decision-driven mobile simulation and management game where you balance boss demands and employee happiness as an HR specialist. Lead your company to success through recruitment, budget management, office crises, and one-on-one staff communication.'
+      },
       tags: ['Unity (2D)', 'C#', 'Aseprite', 'UI/UX', 'Mobile Game'],
       repo: 'https://github.com/kyatoprak/Company-HR',
       demo: '#',
@@ -1357,8 +1518,8 @@
     modalPanel.style.transform = '';
 
     modalWindowTitle.textContent = p.window;
-    modalTitle.textContent = p.title;
-    modalDesc.textContent = p.desc;
+    modalTitle.textContent = p.title[currentLang];
+    modalDesc.textContent = p.desc[currentLang];
     modalTags.innerHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
     
     shotGrid.innerHTML = p.shots.map((imgSrc, idx) => `
