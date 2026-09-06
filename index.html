@@ -74,7 +74,6 @@
   [data-lang-en] { display: none; }
   html[data-lang="en"] [data-lang-tr] { display: none; }
   html[data-lang="en"] [data-lang-en] { display: inline; }
-  /* Blok elemanlar için varsayılan display uyumu */
   html[data-lang="en"] p[data-lang-en], 
   html[data-lang="en"] h3[data-lang-en], 
   html[data-lang="en"] li[data-lang-en] { display: block; }
@@ -604,7 +603,7 @@
     opacity:0.7;
   }
 
-  /* ---------- PROJECT MODAL (Ortalanmış ve Taşınabilir) ---------- */
+  /* ---------- PROJECT MODAL ---------- */
   .modal-backdrop{
     position:fixed;
     inset:0;
@@ -1211,7 +1210,7 @@
     </div>
   </section>
 
-  <!-- Resim Büyük Önizleme (Lightbox) Katmanı -->
+  <!-- Resim Büyük Önizleme Katmanı -->
   <div id="lightbox" style="position:fixed; inset:0; background:rgba(0,0,0,0.88); z-index:300; display:none; align-items:center; justify-content:center; padding:4vw; user-select:none;">
     <button onclick="closeLightbox()" style="position:absolute; top:24px; right:28px; background:none; border:none; color:#fff; font-size:2.2rem; cursor:pointer; z-index:310; opacity:0.8; transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">×</button>
     <button onclick="changeSlide(-1)" style="position:absolute; left:24px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; width:48px; height:48px; border-radius:50%; font-size:1.4rem; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:310; transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">‹</button>
@@ -1222,7 +1221,7 @@
   <footer>Sude Çokyaşar © 2026</footer>
 
 <script>
-  // ---------- SES MOTORU (Web Audio API) ----------
+  // ---------- SES MOTORU  ----------
   let audioCtx = null;
 
   function initAudio() {
@@ -1304,7 +1303,7 @@
     el.addEventListener('click', playClickSound);
   });
 
-  // ---------- DİL DEĞİŞTİRME (TR / EN) MANTIĞI ----------
+  // ---------- DİL DEĞİŞTİRME ----------
   const langToggle = document.getElementById('langToggle');
   let currentLang = 'tr';
 
@@ -1319,7 +1318,7 @@
     applyLanguage(currentLang === 'tr' ? 'en' : 'tr');
   });
 
-  // ---------- SOFT ARKA PLAN MÜZİĞİ SENTEZLEYİCİSİ ----------
+  // ---------- ARKA PLAN MÜZİĞİ SENTEZLEYİCİSİ ----------
   let isMusicPlaying = true;
   let musicInterval = null;
   let activeNodes = [];
@@ -1596,7 +1595,6 @@
     const p = projects[key];
     if(!p) return;
     
-    // Pencere her açıldığında konum stillerini sıfırlayıp tam ortadan başlatıyoruz
     modalPanel.style.left = '';
     modalPanel.style.top = '';
     modalPanel.style.transform = '';
@@ -1641,7 +1639,6 @@
     if(e.key === 'Escape') closeProjectModal();
   });
 
-  // Proje Penceresi Sürükleme Mantığı (Flex transform çakışmasını önleyen güvenli yapı)
   let modalDragging = false, modalStartX = 0, modalStartY = 0, initialLeft = 0, initialTop = 0;
   
   modalDragBar.addEventListener('pointerdown', (e) => {
@@ -1650,7 +1647,6 @@
     
     const rect = modalPanel.getBoundingClientRect();
     
-    // Flexbox ortalamasını iptal edip gerçek piksel konumuna sabitliyoruz
     modalPanel.style.transform = 'none';
     modalPanel.style.left = rect.left + 'px';
     modalPanel.style.top = rect.top + 'px';
@@ -1717,7 +1713,6 @@
     }
   });
 
-  // Deneyim Bölümü Takip Baloncukları
   const expItems = document.querySelectorAll('.exp-item[data-skills]');
   expItems.forEach(item => {
     const skills = item.dataset.skills.split(',').map(s => s.trim()).filter(Boolean);
@@ -1798,13 +1793,12 @@
     });
   });
 
-  // Proje kartları: sürükle/scroll ile kaydırma (mevcut kartlar, sonsuz döngü yok)
+  // Proje kartları
   (function () {
     const viewport = document.getElementById('projectsViewport');
     const track = document.getElementById('projectsGrid');
     if (!viewport || !track) return;
 
-  // --- Mouse ile sürükleyerek kaydırma (masaüstü için) ---
   let isDown = false;
   let startX = 0;
   let startScrollLeft = 0;
@@ -1823,8 +1817,7 @@
     if (!isDown) return;
     const dx = e.clientX - startX;
     if (!hasDragged && Math.abs(dx) > 4) {
-      // Gerçek bir sürükleme ancak burada başlar; normal tıklamalar
-      // pointer capture'a hiç girmediği için click olayı bozulmadan çalışır.
+
       hasDragged = true;
       viewport.classList.add('is-dragging');
       viewport.setPointerCapture(activePointerId);
@@ -1842,7 +1835,6 @@
     viewport.addEventListener('pointerleave', endDrag);
     viewport.addEventListener('pointercancel', endDrag);
 
-    // Sürükleme sırasında yanlışlıkla kart tıklamasını (modal açılmasını) engelle
     viewport.addEventListener('click', (e) => {
       if (hasDragged) {
         e.stopPropagation();
