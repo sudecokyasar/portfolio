@@ -400,27 +400,48 @@
   .section-head .count{font-size:0.85rem; color:var(--ink-soft); opacity:0.7;}
 
   /* projects */
-  .projects-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:26px;
+  .projects-viewport{
+    width:100vw;
+    max-width:100vw;
+    margin-left:calc(50% - 50vw);
+    margin-right:calc(50% - 50vw);
+    padding:0 40px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    position:relative;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+    cursor:grab;
+    scrollbar-width:none;           /* Firefox */
+    -ms-overflow-style:none;        /* IE/Edge */
   }
+  .projects-viewport::-webkit-scrollbar{ display:none; } /* Chrome/Safari */
+  .projects-viewport.is-dragging{ cursor:grabbing; scroll-behavior:auto; }
+
+  .projects-grid{
+    display:flex;
+    gap:26px;
+    width:max-content;
+    margin:0 auto;
+  }
+
+  @media (max-width: 640px){
+    .projects-viewport{ padding:0 20px; }
+  }
+
   .project-card{
+    flex:0 0 320px;
+    width:320px;
     background:var(--card-bg);
     border:1px solid var(--line);
     border-radius:16px 16px 12px 12px;
     overflow:hidden;
-    opacity:0;
-    transform:translateY(36px);
-    transition:opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, background-color .35s ease, border-color .35s ease;
     cursor:pointer;
+    user-select:none;
+    -webkit-user-drag:none;
+    transition:box-shadow .25s ease, background-color .35s ease, border-color .35s ease, transform .25s ease;
   }
-  .project-card.is-visible{opacity:1; transform:translateY(0);}
   .project-card:hover{box-shadow:var(--shadow); transform:translateY(-5px);}
-  .project-card.is-visible:hover{transform:translateY(-5px);}
-  .project-card:nth-child(1){transition-delay:0ms;}
-  .project-card:nth-child(2){transition-delay:110ms;}
-  .project-card:nth-child(3){transition-delay:220ms;}
 
   .project-top{
     display:flex; align-items:center; gap:8px;
@@ -433,13 +454,7 @@
     background:linear-gradient(135deg, var(--sea-pale), var(--sea));
     position:relative;
     overflow:hidden;
-  }
-  .project-media::after{
-  
-    position:absolute; inset:0;
-    background:
-      radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 55%),
-      radial-gradient(circle at 75% 70%, rgba(28,78,99,0.25), transparent 50%);
+    pointer-events:none;
   }
   .project-body{padding:20px 20px 22px; position:relative; overflow:hidden;}
   .project-body h3{
@@ -476,6 +491,10 @@
   }
   .project-card:hover .view-more{opacity:1; gap:10px;}
   .view-more svg{width:13px; height:13px;}
+
+  @media (max-width: 640px){
+    .project-card{ flex-basis:260px; width:260px; }
+  }
 
   /* hover feature overlay */
   .feature-overlay{
@@ -709,7 +728,6 @@
   @media (prefers-reduced-motion: reduce){
     .wave-back, .wave-front{animation:none;}
     .chrome-card, .char-interaction-wrap{animation:none;}
-    .project-card{transition:none;}
   }
 </style>
 </head>
@@ -859,7 +877,7 @@
     </div>
   </div>
 
-  <!-- PROJECT DETAIL MODAL (Ortalanmış ve Taşınabilir) -->
+  <!-- PROJECT DETAIL MODAL  -->
   <div class="modal-backdrop" id="modalBackdrop">
     <div class="modal-panel" id="modalPanel">
       <div class="chrome-bar modal-drag-bar" id="modalDrag">
@@ -895,8 +913,8 @@
       <h2><span data-lang-tr>Projelerim</span><span data-lang-en>My Projects</span></h2>
       <span class="count">01</span>
     </div>
-    <div class="projects-grid">
-
+  <div class="projects-viewport" id="projectsViewport">
+  <div class="projects-grid" id="projectsGrid">
       <article class="project-card" data-project="talentlens">
         <div class="project-top"><span class="chrome-dot"></span><span class="mail-title">cv-analiz-asistani.ai</span></div>
         <div class="project-media"><img src="assets\cv-analiz-asistanı.png" alt="Proje Ekran Görüntüsü" style="width:100%; height:100%; object-fit:cover;"></div>
@@ -1031,7 +1049,51 @@
           </div>
         </div>
       </article>
+
+      <article class="project-card" data-project="huetrace">
+        <div class="project-top"><span class="chrome-dot"></span><span class="mail-title">hue-trace.game</span></div>
+        <div class="project-media"><img src="assets/hue.jpg" alt="Proje Ekran Görüntüsü" style="width:100%; height:100%; object-fit:cover;"></div>
+        <div class="project-body">
+          <h3>
+            <span data-lang-tr>Hue Trace - Renk Bağlama Bulmaca Oyunu</span>
+            <span data-lang-en>Hue Trace - Color Connect Puzzle Game</span>
+          </h3>
+          <p>
+            <span data-lang-tr>Unity ve C# ile geliştirilmiş, kilitli hücreler, buz blokları ve köprü mekanikleriyle katmanlı bir bulmaca deneyimi sunan mobil oyun.</span>
+            <span data-lang-en>A mobile puzzle game built with Unity and C#, featuring locked cells, ice tiles and bridges mechanics for a layered gameplay experience.</span>
+          </p>
+          <div class="tag-row">
+            <span class="tag">Unity</span><span class="tag">C#</span><span class="tag">Mobile Game</span><span class="tag">Puzzle</span><span class="tag">Game Design</span>
+          </div>
+          <div class="view-more">
+            <span data-lang-tr>Detayları gör</span><span data-lang-en>View details</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+          <div class="feature-overlay">
+            <h4><span data-lang-tr>Öne Çıkanlar</span><span data-lang-en>Highlights</span></h4>
+            <ul>
+              <li>
+                <span data-lang-tr>3 zorluk modunda (Easy/Normal/Hard) toplam 300 level</span>
+                <span data-lang-en>300 levels across 3 difficulty modes (Easy/Normal/Hard)</span>
+              </li>
+              <li>
+                <span data-lang-tr>Kilit, buz, köprü gibi özel hücre mekanikleri</span>
+                <span data-lang-en>Special cell mechanics: locked, ice, bridges</span>
+              </li>
+              <li>
+                <span data-lang-tr>Hamle bazlı yıldız derecelendirme ve kalıcı ilerleme kaydı</span>
+                <span data-lang-en>Move-based star rating system with persistent progress tracking</span>
+              </li>
+              <li>
+                <span data-lang-tr>Static event'ler ile gevşek bağlı, ölçeklenebilir mimari</span>
+                <span data-lang-en>Loosely coupled, scalable architecture using static C# events</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </article>
     </div>
+  </div>
   </section>
 
   <!-- EXPERIENCE -->
@@ -1043,10 +1105,10 @@
     <div class="exp-grid">
       <div class="exp-item" data-skills="Spring Boot,CAMARA API,Java,Gateway,Docker,Postman">
         <div class="exp-head">
-          <h3>Argela Technologies — Developer Intern</h3>
+          <h3>Argela Technologies - Developer Intern</h3>
           <time>
-            <span data-lang-tr>Temmuz 2025 — Ağustos 2025</span>
-            <span data-lang-en>July 2025 — August 2025</span>
+            <span data-lang-tr>Temmuz 2025 - Ağustos 2025</span>
+            <span data-lang-en>July 2025 - August 2025</span>
           </time>
         </div>
         <ul>
@@ -1067,12 +1129,12 @@
       <div class="exp-item" data-skills="Database Optimization,System Integration,Indexing,SAP ERP,SQL">
         <div class="exp-head">
           <h3>
-            <span data-lang-tr>Özyaşar Tel ve Galvanizleme — Bilişim Sistemleri Stajyeri</span>
-            <span data-lang-en>Özyaşar Wire and Galvanizing — IT Systems Intern</span>
+            <span data-lang-tr>Özyaşar Tel ve Galvanizleme - Bilişim Sistemleri Stajyeri</span>
+            <span data-lang-en>Özyaşar Wire and Galvanizing - IT Systems Intern</span>
           </h3>
           <time>
-            <span data-lang-tr>Ağustos 2024 — Ekim 2024</span>
-            <span data-lang-en>August 2024 — October 2024</span>
+            <span data-lang-tr>Ağustos 2024 - Ekim 2024</span>
+            <span data-lang-en>August 2024 - October 2024</span>
           </time>
         </div>
         <ul>
@@ -1103,8 +1165,8 @@
             <span data-lang-en>Kocaeli University</span>
           </h3>
           <time>
-            <span data-lang-tr>Eylül 2022 — Temmuz 2026</span>
-            <span data-lang-en>September 2022 — July 2026</span>
+            <span data-lang-tr>Eylül 2022 - Temmuz 2026</span>
+            <span data-lang-en>September 2022 - July 2026</span>
           </time>
         </div>
         <p class="edu-sub">
@@ -1116,13 +1178,13 @@
         <div class="exp-head">
           <h3>John Von Neumann University</h3>
           <time>
-            <span data-lang-tr>Şubat 2024 — Haziran 2024</span>
-            <span data-lang-en>February 2024 — June 2024</span>
+            <span data-lang-tr>Şubat 2024 - Haziran 2024</span>
+            <span data-lang-en>February 2024 - June 2024</span>
           </time>
         </div>
         <p class="edu-sub">
-          <span data-lang-tr>Bilgisayar Bilimleri Mühendisliği (Erasmus+ Değişim Programı — Macaristan)</span>
-          <span data-lang-en>Computer Science Engineering (Erasmus+ Exchange Program — Hungary)</span>
+          <span data-lang-tr>Bilgisayar Bilimleri Mühendisliği (Erasmus+ Değişim Programı - Macaristan)</span>
+          <span data-lang-en>Computer Science Engineering (Erasmus+ Exchange Program - Hungary)</span>
         </p>
       </div>
     </div>
@@ -1474,8 +1536,8 @@
     companyhr: {
       window: 'company-hr.unity',
       title: {
-        tr: 'Company & HR — Mobil Simülasyon Oyunu',
-        en: 'Company & HR — Mobile Simulation Game'
+        tr: 'Company & HR - Mobil Simülasyon Oyunu',
+        en: 'Company & HR - Mobile Simulation Game'
       },
       desc: {
         tr: 'Bir İK uzmanı olarak patronun talepleri ile çalışanların mutluluğu arasındaki ince çizgide denge kurmaya çalıştığınız karar odaklı bir mobil simülasyon ve yönetim oyunu. İşe alımlar, bütçe yönetimi, ofis içi krizler ve birebir çalışan iletişimleriyle şirketi başarıya taşıyın.',
@@ -1492,6 +1554,28 @@
         'assets/hr-5.png',
         'assets/hr-6.png',
         'assets/hr-7.png'
+      ]
+    },
+    huetrace: {
+      window: 'hue-trace.game',
+      title: {
+        tr: 'Hue Trace - Renk Bağlama Bulmaca Oyunu',
+        en: 'Hue Trace - Color Connect Puzzle Game'
+      },
+      desc: {
+        tr: 'Unity ve C# kullanılarak geliştirilen, grid tabanlı bir renk bağlama bulmaca oyunu. Klasik "aynı renkteki taşları birleştir" mekaniğinin üzerine kilitli hücreler, tek kullanımlık buz blokları, çakışan renkleri taşıyabilen köprü hücreleri sistemleri eklendi. Easy, Normal ve Hard olmak üzere 3 zorluk modunda toplam 300 level bulunuyor.',
+        en: 'A grid-based color-connecting puzzle game developed using Unity and C#. Building upon the classic "connect same-colored tiles" mechanic, the game incorporates systems such as locked cells, single-use ice blocks, and bridge cells capable of carrying overlapping colors. It features a total of 300 levels across three difficulty modes: Easy, Normal, and Hard.'
+      },
+      tags: ['Unity', 'C#', 'Mobile Game', 'Puzzle Design', 'Game Architecture'],
+      repo: 'https://github.com/sudecokyasar/Hue-Trace-MobileGame',
+      demo: '',
+      shots: [
+        'assets/hue-1.png',
+        'assets/hue-2.png',
+        'assets/hue-3.png',
+        'assets/hue-4.png',
+        'assets/hue-5.png',
+        'assets/hue-6.png'
       ]
     }
   };
@@ -1713,6 +1797,59 @@
       }
     });
   });
+
+  // Proje kartları: sürükle/scroll ile kaydırma (mevcut kartlar, sonsuz döngü yok)
+  (function () {
+    const viewport = document.getElementById('projectsViewport');
+    const track = document.getElementById('projectsGrid');
+    if (!viewport || !track) return;
+
+  // --- Mouse ile sürükleyerek kaydırma (masaüstü için) ---
+  let isDown = false;
+  let startX = 0;
+  let startScrollLeft = 0;
+  let hasDragged = false;
+  let activePointerId = null;
+
+  viewport.addEventListener('pointerdown', (e) => {
+    isDown = true;
+    hasDragged = false;
+    startX = e.clientX;
+    startScrollLeft = viewport.scrollLeft;
+    activePointerId = e.pointerId;
+  });
+
+  viewport.addEventListener('pointermove', (e) => {
+    if (!isDown) return;
+    const dx = e.clientX - startX;
+    if (!hasDragged && Math.abs(dx) > 4) {
+      // Gerçek bir sürükleme ancak burada başlar; normal tıklamalar
+      // pointer capture'a hiç girmediği için click olayı bozulmadan çalışır.
+      hasDragged = true;
+      viewport.classList.add('is-dragging');
+      viewport.setPointerCapture(activePointerId);
+    }
+    if (hasDragged) {
+      viewport.scrollLeft = startScrollLeft - dx;
+    }
+  });
+
+  function endDrag() {
+    isDown = false;
+    viewport.classList.remove('is-dragging');
+  }
+    viewport.addEventListener('pointerup', endDrag);
+    viewport.addEventListener('pointerleave', endDrag);
+    viewport.addEventListener('pointercancel', endDrag);
+
+    // Sürükleme sırasında yanlışlıkla kart tıklamasını (modal açılmasını) engelle
+    viewport.addEventListener('click', (e) => {
+      if (hasDragged) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    }, true);
+  })();
 </script>
 </body>
 </html>
