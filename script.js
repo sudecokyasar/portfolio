@@ -321,7 +321,7 @@
       },
       tags: ['Unity (2D)', 'C#', 'Aseprite', 'UI/UX', 'Mobile Game'],
       repo: 'https://github.com/kyatoprak/Company-HR',
-      demo: '#',
+      appstore: 'https://apps.apple.com/us/app/company-hr/id6802019337',
       shots: [
         'assets/hr-1.png',
         'assets/hr-2.png',
@@ -365,6 +365,7 @@
   const modalTags = document.getElementById('modalTags');
   const modalRepo = document.getElementById('modalRepo');
   const modalDemo = document.getElementById('modalDemo');
+  const modalAppStore = document.getElementById('modalAppStore');
   const modalClose = document.getElementById('modalClose');
   const shotGrid = document.querySelector('.shot-grid');
 
@@ -393,6 +394,13 @@
       modalDemo.style.display = 'inline-flex';
     } else {
       modalDemo.style.display = 'none';
+    }
+
+    if(p.appstore && p.appstore !== '#'){
+      modalAppStore.href = p.appstore;
+      modalAppStore.style.display = 'inline-flex';
+    } else {
+      modalAppStore.style.display = 'none';
     }
     
     modalBackdrop.classList.add('open');
